@@ -65,7 +65,7 @@ module.exports = mongoose.model("User", signuptemplate);  //signuptemplate is th
 //here ("user") is the database name shown in mongodb where ur data will save
 
 
-// in body type this
+// in body type this postman
 // {
 //   "name":"shaky1",
 //   "email":"sa2@gmail.com",

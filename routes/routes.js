@@ -11,17 +11,21 @@
 // module.exports = router;
 
 
-const express = require("express")
+const express = require("express")     //including express
 const router = express.Router()
-//const signuptemplatecopy = require("../controller/controller")  // signuptemplatecopy is a variable
-const signuptemplatecopy = require("../model/user.model")       // importing schema 
+const signuptemplatecopy = require("../model/user.model")       // importing schema & signuptemplatecopy is a variable
+const bcrypt =require ('bcryptjs')
 
-router.post("/signup",(req,res) => {
+router.post("/signup",async(req,res) => {               //await will not work if u dont use async
+
+    const saltPassword = await bcrypt.genSalt(10)             //genrating salt for password
+    const hashedPassword = await bcrypt.hash(req.body.password,saltPassword)  //saltpassword has been hashed 
+
     const  signupData = new  signuptemplatecopy({
         name:req.body.name,
         email:req.body.email,
          address:req.body.address,
-        password:req.body.password,
+        password:hashedPassword ,
     })
     signupData.save()
     .then(data => {
